@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { differenceInMinutes, differenceInSeconds, differenceInYears, parseISO } from 'date-fns'
-import { Transition } from '@headlessui/react'
+import { Transition, Menu  } from '@headlessui/react'
 import axios from 'axios'
 
 import Stream, { CallState } from '../components/Stream'
@@ -10,6 +10,7 @@ import DateFormatted from '../components/DateFormatted'
 import { SocketContext } from '../App'
 import { useToasts } from '../components/Toast'
 import { avatarPlaceholder } from '../util/helpers'
+
 
 type Status = Boldo.Appointment['status']
 type AppointmentWithPatient = Boldo.Appointment & { patient: iHub.Patient }
@@ -688,7 +689,7 @@ const Sidebar = ({ hideSidebar, appointment }: SidebarProps) => {
 
   return (
     <div className='flex flex-col h-full overflow-y-scroll bg-white shadow-xl'>
-      <header className='px-4 py-6 sm:px-6'>
+      {/* <header className='px-4 py-6 gradient-primary sm:px-6'>
         <div className='flex items-start justify-between space-x-3'>
           <h2 className='text-lg font-medium leading-7 text-gray-900'>Perfil</h2>
           {hideSidebar && (
@@ -711,7 +712,7 @@ const Sidebar = ({ hideSidebar, appointment }: SidebarProps) => {
             </div>
           )}
         </div>
-      </header>
+      </header> */}
       {/* Main */}
       <div className='divide-y divide-gray-200'>
         <div className='pb-6'>
@@ -721,7 +722,7 @@ const Sidebar = ({ hideSidebar, appointment }: SidebarProps) => {
               <div className='flex -m-1'>
                 <div className='inline-flex overflow-hidden border-4 border-white rounded-lg'>
                   <img
-                    className='flex-shrink-0 object-cover w-24 h-24 sm:h-40 sm:w-40 lg:w-48 lg:h-48'
+                    className='flex-shrink-0 object-cover w-24 h-24 sm:h-40 sm:w-20 lg:w-28 lg:h-28'
                     src={appointment.patient.photoUrl || avatarPlaceholder('patient', appointment.patient.gender)}
                     alt=''
                   />
@@ -753,7 +754,60 @@ const Sidebar = ({ hideSidebar, appointment }: SidebarProps) => {
         </div>
         <div className='px-4 py-5 sm:px-0 sm:py-0'>
           <dl className='space-y-8 sm:space-y-0'>
-            <div className='sm:flex sm:space-x-6 sm:px-6 sm:py-5'>
+            
+            
+            
+          </dl>
+        </div>
+      </div>
+      {/* Dropdown - modificaciones en la interfaz */}
+      
+      <div className='relative inline-block px-3 mt-6 text-left'>
+              {/* Dropdown menu toggle, controlling the show/hide state of dropdown menu. */}
+              <Menu>
+                {({ open }) => (
+                  <>
+                    <div>
+                      <Menu.Button className='group w-full rounded-md px-3.5 py-2 text-lg leading-5 font-medium text-gray-700  hover:text-gray-500 focus:outline-none focus:bg-gray-200 focus:border-blue-300 active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150'>
+                        <div className='flex items-center justify-between w-full'>
+                          <div className='flex items-center justify-between min-w-0 space-x-3'>
+                            
+                          Más detalles del paciente
+                            
+                          </div>
+                          {/* Heroicon name: chevron-down */}
+                          <svg
+                            className='flex-shrink-0 w-5 h-5 text-gray-400 group-hover:text-gray-500'
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            stroke='currentColor'
+                          >
+                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
+                          </svg>
+                        </div>
+                      </Menu.Button>
+                    </div>
+                    {/* Dropdown panel, show/hide based on dropdown state. */}
+                    <Transition
+                      show={open}
+                      enter='transition ease-out duration-100'
+                      enterFrom='transform opacity-0 scale-95'
+                      enterTo='transform opacity-100 scale-100'
+                      leave='transition ease-in duration-75'
+                      leaveFrom='transform opacity-100 scale-100'
+                      leaveTo='transform opacity-0 scale-95'
+                      className='absolute left-0 right-0 z-10 mx-3 mt-1 origin-top rounded-md shadow-lg'
+                    >
+                      <div
+                        className='bg-white rounded-md shadow-xs'
+                        role='menu'
+                        aria-orientation='vertical'
+                        aria-labelledby='options-menu'
+                      >
+                        <div className='py-1'>
+
+                        <div className='sm:flex sm:space-x-6 sm:px-6 sm:py-5'>
               <dt className='text-sm font-medium leading-5 text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48'>Edad</dt>
               <dd className='mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2'>
                 {age}
@@ -762,12 +816,13 @@ const Sidebar = ({ hideSidebar, appointment }: SidebarProps) => {
                 </time>
               </dd>
             </div>
-            <div className='sm:flex sm:space-x-6 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5'>
+                        <div className='sm:flex sm:space-x-6 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5'>
               <dt className='text-sm font-medium leading-5 text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48'>Ciudad</dt>
               <dd className='mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2'>
                 {appointment.patient.city || '-'}
               </dd>
             </div>
+
             <div className='sm:flex sm:space-x-6 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5'>
               <dt className='text-sm font-medium leading-5 text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48'>
                 Profesión
@@ -776,27 +831,48 @@ const Sidebar = ({ hideSidebar, appointment }: SidebarProps) => {
                 {appointment.patient.job || '-'}
               </dd>
             </div>
-            <div className='sm:flex sm:space-x-6 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5'>
-              <dt className='text-sm font-medium leading-5 text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48'>Género</dt>
-              <dd className='mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2'>
-                {lookupGender(appointment.patient.gender) || '-'}
-              </dd>
-            </div>
+
             <div className='sm:flex sm:space-x-6 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5'>
               <dt className='text-sm font-medium leading-5 text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48'>Teléfono</dt>
               <dd className='mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2'>
                 {appointment.patient.phone || '-'}
               </dd>
             </div>
+            
+            
             <div className='sm:flex sm:space-x-6 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5'>
+              <dt className='text-sm font-medium leading-5 text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48'>Género</dt>
+              <dd className='mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2'>
+                {lookupGender(appointment.patient.gender) || '-'}
+              </dd>
+            </div>
+                        </div>
+                        <div className='border-t border-gray-100' />
+                        <div className='py-1'>
+                        <div className='sm:flex sm:space-x-6 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5'>
               <dt className='text-sm font-medium leading-5 text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48'>Email</dt>
               <dd className='mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2'>
                 {appointment.patient.email || '-'}
               </dd>
             </div>
-          </dl>
-        </div>
-      </div>
+            
+                        </div>
+                      </div>
+                    </Transition>
+                  </>
+                )}
+              </Menu>
+            </div>
+
+       {/* END- Dropdown - modificaciones en la interfaz */}   
+       <div className='px-4 py-5 sm:px-0 sm:py-0'>
+          
+          <div className='sm:flex sm:space-x-6 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5 text-lg leading-5 font-medium text-gray-700'>
+           
+          </div>
+        </div> 
+        <iframe className='powerbi' src="https://app.powerbi.com/reportEmbed?reportId=e5d43ed1-eb70-42a4-88b9-7683df55bf6a&autoAuth=true&ctid=5430b439-0e9f-4475-82ef-59ef65b485b7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWNlbnRyYWwtdXMtcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQvIn0%3D">
+   </iframe>
     </div>
   )
 }
