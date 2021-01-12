@@ -871,7 +871,7 @@ const Sidebar = ({ hideSidebar, appointment }: SidebarProps) => {
            
           </div>
         </div> 
-        <iframe className='powerbi' src="https://app.powerbi.com/reportEmbed?reportId=e5d43ed1-eb70-42a4-88b9-7683df55bf6a&autoAuth=true&ctid=5430b439-0e9f-4475-82ef-59ef65b485b7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWNlbnRyYWwtdXMtcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQvIn0%3D">
+        <iframe className='powerbi' src="https://app.powerbi.com/view?r=eyJrIjoiYWEyZTIwYzUtMWI0NS00OGI5LTk5ZDItMWJiNjU3ZDRhZDdlIiwidCI6IjU0MzBiNDM5LTBlOWYtNDQ3NS04MmVmLTU5ZWY2NWI0ODViNyIsImMiOjR9&pageName=ReportSection">
    </iframe>
     </div>
   )
